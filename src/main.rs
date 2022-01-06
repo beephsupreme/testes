@@ -1,5 +1,6 @@
+mod fueling;
+
 fn main() {
-    println!("{}", mnr::gcd(60, 24));
-    println!("{}", mnr::lcm(60, 24));
-    println!("{}", mnr::fibonacci(93))
+    let mut v = vec![200, 350, 550, 900];
+    fueling::compute_minimum_stops(900, 400, &mut v);
 }

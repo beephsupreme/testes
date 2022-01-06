@@ -42,8 +42,47 @@ pub fn fibonacci(n: u64) -> u64 {
 
 #[cfg(test)] // Only compiles when running tests
 mod tests {
-    // Separates tests from code
-    use super::bubble_sort;
+    use super::*;
+
+    #[test]
+    fn test_fib_0() {
+        assert_eq!(fibonacci(0u64), 0);
+    }
+
+    #[test]
+    fn test_fib_1() {
+        assert_eq!(fibonacci(1u64), 1);
+    }
+
+    #[test]
+    fn test_fib_10() {
+        assert_eq!(fibonacci(10u64), 55);
+    }
+
+    #[test]
+    fn test_fib_43() {
+        assert_eq!(fibonacci(43u64), 433494437);
+    }
+
+    #[test]
+    fn test_lcm_12_20() {
+        assert_eq!(lcm(12, 20), 60);
+    }
+
+    #[test]
+    fn test_lcm_100_201() {
+        assert_eq!(lcm(100, 201), 20100);
+    }
+
+    #[test]
+    fn test_gcd_f42() {
+        assert_eq!(gcd(267914296, 29), 29);
+    }
+
+    #[test]
+    fn test_gcd_60_45() {
+        assert_eq!(gcd(60, 45), 15);
+    }
 
     fn comp_vec(u: Vec<i32>, v: Vec<i32>) -> bool {
         if u.len() != v.len() {
