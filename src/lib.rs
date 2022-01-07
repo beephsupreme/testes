@@ -1,3 +1,7 @@
+use std::io;
+
+pub struct LengthMismatchError;
+
 pub fn bubble_sort<T: Ord>(arr: &mut [T]) {
     for i in 0..arr.len() {
         for j in 0..arr.len() - i - 1 {
@@ -38,6 +42,28 @@ pub fn fibonacci(n: u64) -> u64 {
         p = t;
     }
     c
+}
+
+pub fn get_int() -> i32 {
+    0
+}
+
+pub fn get_int_vec(n: usize) -> Result<Vec<i32>, LengthMismatchError> {
+    let mut input = String::new();
+    io::stdin()
+        .read_line(&mut input)
+        .expect("error: unable to read user input");
+    let tokens = input.split_whitespace();
+    let mut v: Vec<i32> = vec![];
+    for t in tokens {
+        let i = t.trim().parse::<i32>().unwrap();
+        v.push(i);
+    }
+    if n == v.len() {
+        Ok(v)
+    } else {
+        Err(LengthMismatchError)
+    }
 }
 
 #[cfg(test)] // Only compiles when running tests
