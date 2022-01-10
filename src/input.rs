@@ -6,7 +6,7 @@ use thiserror::Error;
 #[non_exhaustive]
 pub enum InputError {
     #[error("ArgLength: Expected {0} values, Got {1}.")]
-    ArgLengthError(usize, usize),
+    ArgLength(usize, usize),
     #[error("Error reading from stdin.")]
     ReadError,
     #[error("Could not parse {0}")]
@@ -30,7 +30,7 @@ pub fn get_int_vec(n: usize) -> Result<Vec<i32>, InputError> {
     if n == numbers.len() {
         Ok(numbers)
     } else {
-        Err(InputError::ArgLengthError(n, numbers.len()))
+        Err(InputError::ArgLength(n, numbers.len()))
     }
 }
 
@@ -51,7 +51,7 @@ pub fn get_float_vec(n: usize) -> Result<Vec<f64>, InputError> {
     if n == numbers.len() {
         Ok(numbers)
     } else {
-        Err(InputError::ArgLengthError(n, numbers.len()))
+        Err(InputError::ArgLength(n, numbers.len()))
     }
 }
 
@@ -72,7 +72,7 @@ pub fn get_int() -> Result<i32, InputError> {
     if numbers.len() == 1 {
         Ok(numbers[0])
     } else {
-        Err(InputError::ArgLengthError(1, numbers.len()))
+        Err(InputError::ArgLength(1, numbers.len()))
     }
 }
 
@@ -93,6 +93,6 @@ pub fn get_float() -> Result<f64, InputError> {
     if numbers.len() == 1 {
         Ok(numbers[0])
     } else {
-        Err(InputError::ArgLengthError(1, numbers.len()))
+        Err(InputError::ArgLength(1, numbers.len()))
     }
 }
