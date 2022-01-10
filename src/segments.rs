@@ -42,6 +42,16 @@ pub fn get_segment() -> Result<Segment, input::InputError> {
     Ok(Segment::new(v[0], v[1]))
 }
 
+pub fn bubble_sort(v: &mut Vec<Segment>) {
+    for i in 0..v.len() {
+        for j in 0..v.len() - i - 1 {
+            if cmp(&v[j], &v[j+1]){
+                v.swap(j, j + 1);
+            }
+        }
+    }
+}
+
 pub fn signatures() -> Result<bool, input::InputError> {
     let n = match input::get_int() {
         Ok(n) => n,
@@ -54,7 +64,15 @@ pub fn signatures() -> Result<bool, input::InputError> {
             Err(e) => return Err(e),
         };
     }
-    for i in s {
+    let it = s.iter();
+    for i in it {
+        println!("{:?}", i);
+    }
+    
+    bubble_sort(&mut s);
+
+    let it = s.iter();
+    for i in it {
         println!("{:?}", i);
     }
     Ok(true)
