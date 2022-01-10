@@ -1,8 +1,5 @@
 #![allow(unused)]
-
-use std::process;
-use std::io;
-pub struct LengthMismatchError;
+use crate::input;
 
 #[derive(Debug)]
 pub struct Segment {
@@ -37,23 +34,30 @@ pub fn cmp(lhs: &Segment, rhs: &Segment) -> bool {
     lhs.get_y() < rhs.get_y()
 }
 
-pub fn get_segment() -> Segment {
-    let mut input = String::new();
-    io::stdin()
-        .read_line(&mut input)
-        .expect("error: unable to read user input");
-    let mut tokens = input.split_whitespace();
-    let p = tokens.next().unwrap().trim().parse::<i32>().unwrap();
-    let q = tokens.next().unwrap().trim().parse::<i32>().unwrap();
-    let s: Segment = Segment::new(p, q);
-    s
+pub fn get_segment() -> Result<Segment, input::InputError> {
+    let p = match input::get_int() {
+        Ok(p) => p,
+        Err(e) => return Err(e),
+    };
+    let q = match input::get_int() {
+        Ok(p) => p,
+        Err(e) => return Err(e),
+    };
+    Ok(Segment::new(p, q))
 }
 
-pub fn signatures() {
-    let s = get_segment();
-    let t = get_segment();
+pub fn signatures() -> Result<bool, input::InputError> {
+    let s = match get_segment() {
+        Ok(s) => s,
+        Err(e) => return Err(e),
+    };
+    let t = match get_segment() {
+        Ok(t) => t,
+        Err(e) => return Err(e),
+    };
     println!("{:?}", s);
     println!("{:?}", t);
+    Ok(true)
 }
 
 // int main() {

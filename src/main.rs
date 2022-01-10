@@ -1,12 +1,12 @@
 #![allow(unused)]
 use anyhow::{Context, Result};
 
-mod maxloot;
+mod segments;
 mod input;
 
 fn main() -> Result<()> {
-    let ml = match maxloot::driver(){
-        Ok(ml)=>{println!("{}", ml)},
+    let s = match segments::signatures(){
+        Ok(s)=>{println!("{}", s)},
         Err(e)=>{println!("{}", e)}
     };
     Ok(())
