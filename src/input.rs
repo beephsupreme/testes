@@ -5,7 +5,7 @@ use thiserror::Error;
 #[derive(Error, Debug)]
 #[non_exhaustive]
 pub enum InputError {
-    #[error("ArgLength: Expected {0} values, Got {1}.")]
+    #[error("ArgLength: Expected: {0}, Got: {1}")]
     ArgLength(usize, usize),
     #[error("Error reading from stdin.")]
     ReadError,

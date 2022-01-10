@@ -35,28 +35,28 @@ pub fn cmp(lhs: &Segment, rhs: &Segment) -> bool {
 }
 
 pub fn get_segment() -> Result<Segment, input::InputError> {
-    let p = match input::get_int() {
-        Ok(p) => p,
+    let v = match input::get_int_vec(2) {
+        Ok(v) => v,
         Err(e) => return Err(e),
     };
-    let q = match input::get_int() {
-        Ok(p) => p,
-        Err(e) => return Err(e),
-    };
-    Ok(Segment::new(p, q))
+    Ok(Segment::new(v[0], v[1]))
 }
 
 pub fn signatures() -> Result<bool, input::InputError> {
-    let s = match get_segment() {
-        Ok(s) => s,
+    let n = match input::get_int() {
+        Ok(n) => n,
         Err(e) => return Err(e),
     };
-    let t = match get_segment() {
-        Ok(t) => t,
-        Err(e) => return Err(e),
-    };
-    println!("{:?}", s);
-    println!("{:?}", t);
+    let mut s: Vec<Segment> = vec![];
+    for i in 0..n {
+        let mut temp = match get_segment() {
+            Ok(temp) => s.push(temp),
+            Err(e) => return Err(e),
+        };
+    }
+    for i in s {
+        println!("{:?}", i);
+    }
     Ok(true)
 }
 
