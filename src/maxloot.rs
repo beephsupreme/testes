@@ -1,3 +1,6 @@
+use crate::input;
+use anyhow::{Context, Result};
+
 pub fn loot(capacity: i32, values: &mut Vec<i32>, weights: &mut Vec<i32>) -> f64 {
     let mut density: Vec<f64> = vec![];
 
@@ -39,4 +42,22 @@ fn loot_bubble_sort(density: &mut Vec<f64>, weights: &mut Vec<i32>, values: &mut
             }
         }
     }
+}
+
+pub fn driver() -> Result<f64, input::InputError> {
+    let mut v = match input::get_int_vec(2) {
+        Ok(v) => v,
+        Err(e) => return Err(e),
+    };
+    let mut weights: Vec<i32> = vec![];
+    let mut values: Vec<i32> = vec![];
+    for _ in 0..v[0] {
+        let mut temp = match input::get_int_vec(2) {
+            Ok(v) => v,
+            Err(e) => return Err(e),
+        };
+        values.push(temp[0]);
+        weights.push(temp[1]);
+    }
+    Ok(loot(v[1], &mut values, &mut weights))
 }
