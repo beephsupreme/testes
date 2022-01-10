@@ -1,4 +1,8 @@
+#![allow(unused)]
+
 use std::process;
+use std::io;
+pub struct LengthMismatchError;
 
 #[derive(Debug)]
 pub struct Segment {
@@ -33,24 +37,23 @@ pub fn cmp(lhs: &Segment, rhs: &Segment) -> bool {
     lhs.get_y() < rhs.get_y()
 }
 
+pub fn get_segment() -> Segment {
+    let mut input = String::new();
+    io::stdin()
+        .read_line(&mut input)
+        .expect("error: unable to read user input");
+    let mut tokens = input.split_whitespace();
+    let p = tokens.next().unwrap().trim().parse::<i32>().unwrap();
+    let q = tokens.next().unwrap().trim().parse::<i32>().unwrap();
+    let s: Segment = Segment::new(p, q);
+    s
+}
+
 pub fn signatures() {
-    let n: usize = 5;
-    let mut values: Vec<i32> = vec![];
-    let s: Segment = Segment::new(42, 61);
-    let t: Segment = Segment::new(12, 62);
-    let vector = mnr::get_int_vec(n);
-    match vector {
-        Ok(v) => {
-            values = v;
-        }
-        Err(_) => {
-            println!("FAIL: Input length mismatch.");
-            process::exit(1)
-        }
-    }
-    for v in &values {
-        println!("{}", v);
-    }
+    let s = get_segment();
+    let t = get_segment();
+    println!("{:?}", s);
+    println!("{:?}", t);
 }
 
 // int main() {

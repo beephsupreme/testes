@@ -1,3 +1,5 @@
+#![allow(unused)]
+
 use std::io;
 
 pub struct LengthMismatchError;
@@ -38,7 +40,7 @@ pub fn fibonacci(n: u64) -> u64 {
     let mut c: u64 = 1;
     for _ in 0..n - 1 {
         let t: u64 = c;
-        c = p + c;
+        c += p;
         p = t;
     }
     c
