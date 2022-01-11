@@ -1,11 +1,11 @@
 #![allow(unused)]
 use anyhow::{Context, Result};
 
-mod segments;
+mod salary;
 mod input;
 
 fn main() -> Result<()> {
-    let s = match segments::signatures(){
+    let s = match salary::driver() {
         Ok(s)=>{println!("{}", s)},
         Err(e)=>{println!("{}", e)}
     };
