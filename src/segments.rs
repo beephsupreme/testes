@@ -1,4 +1,5 @@
 #![allow(unused)]
+
 use crate::input;
 
 #[derive(Debug)]
@@ -12,7 +13,7 @@ impl Segment {
         if x > y {
             std::mem::swap(&mut x, &mut y);
         }
-        Segment { x: x, y: y }
+        Segment { x, y }
     }
 
     pub fn get_y(&self) -> i32 {
@@ -31,7 +32,7 @@ impl Segment {
 }
 
 pub fn cmp(lhs: &Segment, rhs: &Segment) -> bool {
-    lhs.get_y() < rhs.get_y()
+    lhs.get_y() > rhs.get_y()
 }
 
 pub fn get_segment() -> Result<Segment, input::InputError> {
@@ -45,7 +46,7 @@ pub fn get_segment() -> Result<Segment, input::InputError> {
 pub fn bubble_sort(v: &mut Vec<Segment>) {
     for i in 0..v.len() {
         for j in 0..v.len() - i - 1 {
-            if cmp(&v[j], &v[j+1]){
+            if cmp(&v[j], &v[j + 1]) {
                 v.swap(j, j + 1);
             }
         }
@@ -57,58 +58,34 @@ pub fn signatures() -> Result<bool, input::InputError> {
         Ok(n) => n,
         Err(e) => return Err(e),
     };
-    let mut s: Vec<Segment> = vec![];
+    let mut lines: Vec<Segment> = vec![];
     for i in 0..n {
         let mut temp = match get_segment() {
-            Ok(temp) => s.push(temp),
+            Ok(temp) => lines.push(temp),
             Err(e) => return Err(e),
         };
     }
-    let it = s.iter();
-    for i in it {
-        println!("{:?}", i);
+    bubble_sort(&mut lines);
+    let mut used = vec![0; lines.len()];
+    let mut found = vec![];
+    let mut count = 0;
+    for i in 0..lines.len() {
+        if used[i] == 0 {
+            for j in i + 1..lines.len() {
+                if lines[i].intersects(&lines[j]) {
+                    used[j] = 1;
+                } else {
+                    used[i] = 1;
+                }
+            }
+            count += 1;
+            found.push(lines[i].get_y());
+        }
     }
-    
-    bubble_sort(&mut s);
-
-    let it = s.iter();
-    for i in it {
-        println!("{:?}", i);
+    println!("{}", count);
+    for i in found {
+        print!("{} ", i);
     }
+    println!();
     Ok(true)
 }
-
-// int main() {
-//     Segment *temp;
-//     vector<Segment *> lines(0);
-//     vector<INT> used(0);
-//     vector<INT> found(0);
-//     INT count{0}, left, right, n;
-//     cin >> n;
-//     for (int i = 0; i < n; ++i) {
-//         cin >> left >> right;
-//         temp = new Segment(left, right);
-//         lines.push_back(temp);
-//         used.push_back(0);
-//     }
-//     sort(lines.begin(), lines.end(), &cmp);
-//     for (int i = 0; i < lines.size(); ++i) {
-//         if (!used[i]) {
-//             for (int j = i + 1; j < lines.size(); ++j) {
-//                 if (lines[i]->intersects(*lines[j])) {
-//                     used[j] = 1;
-//                 } else {
-//                     used[i] = 1;
-//                 }
-//             }
-//             count++;
-//             found.push_back(lines[i]->getY());
-//         }
-//     }
-//     cout << count << endl;
-//     for (auto &f : found) {
-//         cout << f << " ";
-//     }
-//     cout << endl;
-//     return 0;
-// }
