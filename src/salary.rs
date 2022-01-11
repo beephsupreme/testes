@@ -41,19 +41,3 @@ pub fn driver()  -> Result<bool, input::InputError> {
     println!("{}", largest_number(&mut numbers));
     Ok(true)
 }
-// string largestNumber(vector<string> numbers) {
-// string result;
-// std::stringstream str;
-//
-// while (!numbers.empty()) {
-// string max("0");
-// INT pos = 0;
-    // for (INT i = 0; i < numbers.size(); i++) {
-    // if (greaterOrEqual(numbers[i], max)) {
-    // max = numbers[i];
-    // pos = i;
-    // }
-// }
-// str << max;
-// numbers.erase(numbers.begin() + pos);
-// }
