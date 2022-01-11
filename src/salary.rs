@@ -2,28 +2,45 @@
 
 use crate::input;
 
+fn greater_or_equal(digit: &String, max: &String) -> bool {
+    if format!("{}{}", digit, max) >= format!("{}{}", max, digit){
+        return true;
+    }
+    false
+}
+
+pub fn largest_number(numbers: &mut Vec<String>) -> String {
+    let mut result: String = String::new();
+    loop {
+        if numbers.len() == 0 {
+            break;
+        }
+        let mut max = "0".to_string();
+        let mut pos = 0;
+        for i in 0..numbers.len() {
+            if greater_or_equal(&numbers[i], &max) {
+                max = numbers[i].clone();
+                pos = i;
+            }
+        }
+        result = format!("{}{}", result, max);
+        numbers.remove(pos);
+    }
+    return result;
+}
+
 pub fn driver()  -> Result<bool, input::InputError> {
     let n = match input::get_int() {
         Ok(n) => n,
         Err(e) => {return Err(e)},
     };
-    let mut numbers = match input::get_int_vec(n as usize) {
+    let mut numbers = match input::get_words(n as usize) {
         Ok(numbers) => numbers,
         Err(e) => return Err(e),
     };
-
-    let result : String = String::new();
-    println!("{}", result);
+    println!("{}", largest_number(&mut numbers));
     Ok(true)
 }
-
-// bool greaterOrEqual(const string &digit, const string &max) {
-// if (digit + max >= max + digit) {
-// return true;
-// }
-// return false;
-// }
-//
 // string largestNumber(vector<string> numbers) {
 // string result;
 // std::stringstream str;
@@ -31,26 +48,12 @@ pub fn driver()  -> Result<bool, input::InputError> {
 // while (!numbers.empty()) {
 // string max("0");
 // INT pos = 0;
-// for (INT i = 0; i < numbers.size(); i++) {
-// if (greaterOrEqual(numbers[i], max)) {
-// max = numbers[i];
-// pos = i;
-// }
+    // for (INT i = 0; i < numbers.size(); i++) {
+    // if (greaterOrEqual(numbers[i], max)) {
+    // max = numbers[i];
+    // pos = i;
+    // }
 // }
 // str << max;
 // numbers.erase(numbers.begin() + pos);
-// }
-// str >> result;
-// return result;
-// }
-//
-// int main() {
-// INT n;
-// cin >> n;
-// vector<string> numbers(n);
-// for (auto &number: numbers) {
-// cin >> number;
-// }
-// cout << largestNumber(numbers);
-// return 0;
 // }

@@ -34,6 +34,26 @@ pub fn get_int_vec(n: usize) -> Result<Vec<i32>, InputError> {
     }
 }
 
+pub fn get_words(n: usize) -> Result<Vec<String>, InputError> {
+    let mut input = String::new();
+    match io::stdin().read_line(&mut input) {
+        Ok(_) => {}
+        Err(_) => {
+            return Err(InputError::ReadError);
+        }
+    }
+    let mut tokens = input.split_whitespace();
+    let mut words: Vec<String> = vec![];
+    for t in tokens {
+        words.push(t.to_string());
+    }
+    if n == words.len() {
+        Ok(words)
+    } else {
+        Err(InputError::ArgLength(n, words.len()))
+    }
+}
+
 pub fn get_float_vec(n: usize) -> Result<Vec<f64>, InputError> {
     let mut input = String::new();
     match io::stdin().read_line(&mut input) {
