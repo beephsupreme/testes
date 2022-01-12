@@ -11,6 +11,8 @@ pub enum InputError {
     ReadError,
     #[error("Could not parse {0}")]
     ParseError(String),
+    #[error("Out-Of-Range: {0}")]
+    OutOfRange(String),
 }
 
 pub fn get_int_vec(n: usize) -> Result<Vec<i32>, InputError> {
